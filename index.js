@@ -205,6 +205,11 @@ module.exports = function (app) {
           }
           let timestamp = update.timestamp;
           for (value of update.values) {
+			  
+		  if (value.value.latitude === 0 && value.value.longitude === 0) {
+        		// Skip saving point with latitude and longitude both equal to 0
+        		return;
+           }
             // app.debug(`value:`, value);
 
             if (!shouldDoLog) {
@@ -213,6 +218,8 @@ module.exports = function (app) {
             if (!isValidLatitude(value.value.latitude) || !isValidLongitude(value.value.longitude)) {
               return;
             }
+            
+            
             if (lastPosition) {
               if (new Date(lastPosition.timestamp).getTime() > new Date(timestamp).getTime()) {
                 app.debug('got error in timestamp:', timestamp, 'is earlier than previous:', lastPosition.timestamp);
@@ -229,6 +236,7 @@ module.exports = function (app) {
               // }
             }
             lastPosition = { pos: value.value, timestamp, currentTime: new Date().getTime() };
+            
             await savePoint(lastPosition);
             if (options.minSpeed) {
               app.debug('setting shouldDoLog to false');
