@@ -11,13 +11,13 @@ const isReachable = require('is-reachable');
 const sendEmail = require('./sendEmail');
 const createGPX = require('./createGPX');
 const apiUrl = 'https://www.noforeignland.com/home/api/v1/boat/tracking/track';
-const pluginApiKey = 'eef6916b-77fa-4538-9870-034a8ab81989';
+const pluginApiKey = '0ede6cb6-5213-45f5-8ab4-b4836b236f97';
 // const msToKn = 1.944;
 
 
 module.exports = function (app) {
   var plugin = {};
-  plugin.id = 'signalk-to-nfl';
+  plugin.id = 'signalk-to-noforeignland';
   plugin.name = 'SignalK To NFL';
   plugin.description = 'SignalK track logger to noforeignland.com';
 
@@ -116,7 +116,7 @@ module.exports = function (app) {
 
   var unsubscribes = [];
   var unsubscribesControl = [];
-  var routeSaveName = 'track.jsonl';
+  var routeSaveName = 'nfl-track.jsonl';
   let lastPosition;
   let upSince;
   let cron;
@@ -397,7 +397,7 @@ module.exports = function (app) {
           if (responseBody.status === 'ok') {
             app.debug('Track successfully sent to API');
             if (options.keepFiles) {
-              const filename = new Date().toJSON().slice(0, 19).replace(/:/g, '') + '-track.jsonl';
+              const filename = new Date().toJSON().slice(0, 19).replace(/:/g, '') + '-nfl-track.jsonl';
               app.debug('moving and keeping track file: ', filename);
               await fs.move(path.join(options.trackDir, routeSaveName), path.join(options.trackDir, filename));
             } else {

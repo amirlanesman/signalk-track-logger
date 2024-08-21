@@ -1,7 +1,7 @@
 {
   "name": "signalk-to-noforeignland",
-  "version": "0.1.6",
-  "description": "SignalK track logger to noforeignland.com",
+  "version": "0.1.7",
+  "description": "SignalK track logger to noforeignland.com ",
   "main": "index.js",
   "keywords": [
     "signalk-node-server-plugin",
