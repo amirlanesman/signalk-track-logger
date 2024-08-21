@@ -471,6 +471,12 @@ module.exports = function (app) {
       }
       await fs.rm(path.join(options.trackDir, routeSaveName));
     }
+	//every 10 minute but staggered to the second so we don't all send at once.
+	if (!options.emailCron || options.emailCron === '*/10 * * * *') {
+	   const startMinute = Math.floor(Math.random() * 10);  // Random minute within the 10-minute range
+	   const startSecond = Math.floor(Math.random() * 60);  // Random second within the minute
+	   options.emailCron = `${startSecond} ${startMinute}/10 * * * *`;  // Every 10 minutes, starting at a random minute and second within each 10-minute block
+	 }
 
     upSince = new Date().getTime();
 
