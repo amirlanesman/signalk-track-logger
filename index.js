@@ -18,7 +18,7 @@ const pluginApiKey = '0ede6cb6-5213-45f5-8ab4-b4836b236f97';
 module.exports = function (app) {
   var plugin = {};
   plugin.id = 'signalk-to-noforeignland';
-  plugin.name = 'SignalK To NFL';
+  plugin.name = 'SignalK To noforeignland';
   plugin.description = 'SignalK track logger to noforeignland.com';
 
   plugin.schema = {
