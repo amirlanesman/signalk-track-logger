@@ -11,14 +11,14 @@ const isReachable = require('is-reachable');
 const sendEmail = require('./sendEmail');
 const createGPX = require('./createGPX');
 const apiUrl = 'https://www.noforeignland.com/home/api/v1/boat/tracking/track';
-const pluginApiKey = 'eef6916b-77fa-4538-9870-034a8ab81989';
+const pluginApiKey = '0ede6cb6-5213-45f5-8ab4-b4836b236f97';
 // const msToKn = 1.944;
 
 
 module.exports = function (app) {
   var plugin = {};
-  plugin.id = 'signalk-to-nfl';
-  plugin.name = 'SignalK To NFL';
+  plugin.id = 'signalk-to-noforeignland';
+  plugin.name = 'SignalK to Noforeignland';
   plugin.description = 'SignalK track logger to noforeignland.com';
 
   plugin.schema = {
@@ -116,7 +116,7 @@ module.exports = function (app) {
 
   var unsubscribes = [];
   var unsubscribesControl = [];
-  var routeSaveName = 'track.jsonl';
+  var routeSaveName = 'nfl-track.jsonl';
   let lastPosition;
   let upSince;
   let cron;
@@ -205,6 +205,11 @@ module.exports = function (app) {
           }
           let timestamp = update.timestamp;
           for (value of update.values) {
+			  
+		  if (value.value.latitude === 0 && value.value.longitude === 0) {
+        		// Skip saving point with latitude and longitude both equal to 0
+        		return;
+           }
             // app.debug(`value:`, value);
 
             if (!shouldDoLog) {
@@ -213,6 +218,8 @@ module.exports = function (app) {
             if (!isValidLatitude(value.value.latitude) || !isValidLongitude(value.value.longitude)) {
               return;
             }
+            
+            
             if (lastPosition) {
               if (new Date(lastPosition.timestamp).getTime() > new Date(timestamp).getTime()) {
                 app.debug('got error in timestamp:', timestamp, 'is earlier than previous:', lastPosition.timestamp);
@@ -229,6 +236,7 @@ module.exports = function (app) {
               // }
             }
             lastPosition = { pos: value.value, timestamp, currentTime: new Date().getTime() };
+            
             await savePoint(lastPosition);
             if (options.minSpeed) {
               app.debug('setting shouldDoLog to false');
@@ -389,7 +397,7 @@ module.exports = function (app) {
           if (responseBody.status === 'ok') {
             app.debug('Track successfully sent to API');
             if (options.keepFiles) {
-              const filename = new Date().toJSON().slice(0, 19).replace(/:/g, '') + '-track.jsonl';
+              const filename = new Date().toJSON().slice(0, 19).replace(/:/g, '') + '-nfl-track.jsonl';
               app.debug('moving and keeping track file: ', filename);
               await fs.move(path.join(options.trackDir, routeSaveName), path.join(options.trackDir, filename));
             } else {
@@ -463,6 +471,12 @@ module.exports = function (app) {
       }
       await fs.rm(path.join(options.trackDir, routeSaveName));
     }
+	//every 10 minute but staggered to the second so we don't all send at once.
+	if (!options.emailCron || options.emailCron === '*/10 * * * *') {
+	   const startMinute = Math.floor(Math.random() * 10);  // Random minute within the 10-minute range
+	   const startSecond = Math.floor(Math.random() * 60);  // Random second within the minute
+	   options.emailCron = `${startSecond} ${startMinute}/10 * * * *`;  // Every 10 minutes, starting at a random minute and second within each 10-minute block
+	 }
 
     upSince = new Date().getTime();
 

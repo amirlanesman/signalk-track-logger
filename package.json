@@ -1,20 +1,20 @@
 {
-  "name": "signalk-to-nfl",
-  "version": "0.1.5",
-  "description": "SignalK track logger to noforeignland.com",
+  "name": "signalk-to-noforeignland",
+  "version": "0.1.9",
+  "description": "SignalK track logger to noforeignland.com ",
   "main": "index.js",
   "keywords": [
     "signalk-node-server-plugin",
     "signalk-category-utility"
   ],
-  "author": "Amir Lanesman",
-  "homepage": "https://github.com/amirlanesman/signalk-track-logger#readme",
+  "author": "Ian Miller",
+  "homepage": "https://github.com/noforeignland/nfl-signalk",
   "bugs": {
-    "url": "https://github.com/amirlanesman/signalk-track-logger/issues"
+    "url": "https://github.com/noforeignland/nfl-signalk/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/amirlanesman/signalk-track-logger.git"
+    "url": "https://github.com/noforeignland/nfl-signalk.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

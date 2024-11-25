@@ -1,5 +1,5 @@
 # SignalK To NFL
-Effortlessly log your your boat's movement to **noforeignland.com**
+Effortlessly log your boat's movement to **noforeignland.com**
 
 ## Features
 * Automatically log your position to NFL
@@ -10,8 +10,8 @@ An internet connection is required in order to update NFL.
 
 ## Requirements
 * A **noforeignland.com** account
-* Get your NFL Boat API key: Account > Settings > Boat tracking > API Key
-* If using Gmail, get an 'App Password': https://support.google.com/mail/answer/185833?hl=en
+* Your Boat API Key from the **noforeignland.com** website: 
+  * Account > Settings > Boat tracking > API Key
 
-
-### Users using the old version which uses email should update and change to the new version using NFL API
+> Note your Boat API Key is not available in the app. 
+> You must sign in to the **noforeignland.com** website (using the same authentication method you use for the app: Google. Facebook, Email).
