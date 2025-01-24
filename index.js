@@ -83,34 +83,7 @@ module.exports = function (app) {
         "title": "Should keep track files on disk?",
         "description": "If you have a lot of hard drive space you can keep the track files for logging purposes.",
         "default": false
-      },
-      "emailService": {
-        "type": "string",
-        "title": "*LEGACY* Email service in use to send tracking reports *OPTIONAL*",
-        "description": "Email service for outgoing mail from this list: https://community.nodemailer.com/2-0-0-beta/setup-smtp/well-known-services/",
-        "default": 'gmail',
-      },
-      "emailUser": {
-        "type": "string",
-        "title": "*LEGACY* Email user *OPTIONAL*",
-        "description": "Email user for outgoing mail. Normally should be set to the your email.",
-      },
-      "emailPassword": {
-        "type": "string",
-        "title": "*LEGACY* Email user password *OPTIONAL*",
-        "description": "Email user password for outgoing mail. check out the readme 'Requirements' section for more info.",
-      },
-      "emailFrom": {
-        "type": "string",
-        "title": "*LEGACY* Email 'From' address *OPTIONAL*",
-        "description": "Address must be set in NFL. Normally should be set to the your email. check out the readme 'Requirements' section for more info.",
-      },
-      "emailTo": {
-        "type": "string",
-        "title": "*LEGACY* Email 'to' address *OPTIONAL*",
-        "description": "Email address to send track GPX files to. defaults to: tracking@noforeignland.com. (can be set to your own email for testing purposes)",
-        "default": 'tracking@noforeignland.com',
-      },
+      }
     }
   };
 
